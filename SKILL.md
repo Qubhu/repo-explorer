@@ -34,11 +34,14 @@ tools: Read, Glob, Grep, Bash, WebFetch, WebSearch
 **GitHub URL 输入：**
 
 ```bash
-# 克隆仓库到临时目录
-REPO_DIR="/tmp/repo-explorer/$(basename $GITHUB_URL .git)"
+# 克隆仓库到当前项目目录下的 ./repo-explorer/
+REPO_DIR="./repo-explorer/$(basename "${GITHUB_URL%.git}")"
+mkdir -p "$(dirname "$REPO_DIR")"
+
 if [ ! -d "$REPO_DIR" ]; then
     git clone --depth 50 "$GITHUB_URL" "$REPO_DIR"
 fi
+
 cd "$REPO_DIR"
 ```
 
